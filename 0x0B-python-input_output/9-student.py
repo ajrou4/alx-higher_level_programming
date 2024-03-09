@@ -1,22 +1,15 @@
 #!/usr/bin/python3
-"""Defines a class Student."""
+"""Module that defines a class Student"""
 
 
 class Student:
-    """Represent a student."""
-
+    """Defines a student"""
     def __init__(self, first_name, last_name, age):
-        """Initialize a new Student.
-
-        Args:
-            first_name (str): The first name of the student.
-            last_name (str): The last name of the student.
-            age (int): The age of the student.
-        """
+        """Initializes an instance of the Student class"""
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self):
-        """Get a dictionary representation of the Student."""
+        """Returns the dictionary description with simple data structure"""
         return self.__dict__

@@ -1,62 +1,91 @@
 #include "lists.h"
 
 /**
- * reverse_list - reverses the second half of the linked list
+ * list_to_array - converts a linked list to an array
  * @head: the head of the list
- * Return: the new head of the reversed list
+ * @size: the size of the array
+ * Return: return an array
  */
-listint_t *reverse_list(listint_t *head)
+
+int *list_to_array(listint_t *head, int size)
 {
-    listint_t *prev = NULL, *current = head, *next;
+int i = 0;
+int *array = malloc(sizeof(int) * size);
 
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
+listint_t *tmp = head;
+if (!array)
+return (NULL);
+while (tmp)
+{
+array[i] = tmp->n;
+i++;
+tmp = tmp->next;
+}
+return (array);
+}
 
-    return prev;
+
+/**
+ *get_list_size - get the size of the list
+ *@head: the head of the list
+ *Return: return the size of the list
+ */
+
+int get_list_size(listint_t *head)
+{
+listint_t *tmp = head;
+int size = 0;
+
+while (tmp)
+{
+size++;
+tmp = tmp->next;
+}
+return (size);
 }
 
 /**
- * is_palindrome - checks if a list is a palindrome
- * @head: the head of the list
- * Return: 1 if true, 0 otherwise
+ *get_element_at - gets an elment at a specific index
+ *@head: the head of the list
+ *@index: the index of the element to retrieve
+ *Return: the element if found else -1
  */
-int is_palindrome(listint_t **head)
+
+int get_element_at(listint_t *head, int index)
 {
-    if (*head == NULL || (*head)->next == NULL)
-        return 1; // An empty list or a single-node list is a palindrome
+int i = 0;
+listint_t *tmp = head;
 
-    listint_t *slow = *head, *fast = *head, *second_half, *prev_slow = *head;
-
-    while (fast != NULL && fast->next != NULL)
-    {
-        prev_slow = slow;
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-
-    if (fast != NULL) // Odd number of elements, move slow to the middle
-        slow = slow->next;
-
-    second_half = reverse_list(slow);
-    slow = *head;
-
-    while (second_half != NULL)
-    {
-        if (slow->n != second_half->n)
-        {
-            reverse_list(second_half); // Restore the original order
-            return 0; // Not a palindrome
-        }
-        slow = slow->next;
-        second_half = second_half->next;
-    }
-
-    reverse_list(second_half); // Restore the original order
-    return 1; // Palindrome
+while (tmp)
+{
+if (i == index)
+return (tmp->n);
+i++;
+tmp = tmp->next;
+}
+return (-1);
 }
 
+/**
+ *is_palindrome - checks if a list is palindrome
+ *@head: the head of the list
+ *Return: 1 if true else 0
+ */
+
+int is_palindrome(listint_t **head)
+{
+int list_size = get_list_size(*head);
+int *array = list_to_array(*head, list_size);
+int last = list_size - 1;
+int begin = 0;
+
+while (begin < last)
+{
+if (array[begin] != array[last])
+return (0);
+last--;
+begin++;
+}
+free(array);
+return (1);
+}

@@ -1,0 +1,3 @@
+-- all databases
+SHOW databases;
+

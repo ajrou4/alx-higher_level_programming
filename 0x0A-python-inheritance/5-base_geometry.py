@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""Defines an empty class BaseGeometry."""
+""" Module that contains a class BaseGeometry """
 
 
 class BaseGeometry:
-    """Represent base geometry."""
+    """ Class that contains methods area and integer_validator """
     pass
